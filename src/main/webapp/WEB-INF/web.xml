@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <servlet>
+    <servlet-name>msgsuct</servlet-name>
+    <servlet-class>com.tinymvc.web.servlst.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>msgsuct</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 会话共享过滤器，注意放在其他filter之前 -->
+	<filter>
+	    <filter-name>SessionSharingFilter</filter-name>
+	    <filter-class>cn.uncode.session.SessionSharingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>SessionSharingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+  
+</web-app>
