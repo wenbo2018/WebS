@@ -30,12 +30,6 @@ public class InstanceFactory {
      * HandlerInvoker
      */
     private static final String HANDLER_INVOKER = "com.tinymvc.web.mapping.DefaulHandlerInvokerImpl";
-
-    /**
-     * HandlerExceptionResolver
-     */
-    private static final String HANDLER_EXCEPTION_RESOLVER = "smart.framework.custom.handler_exception_resolver";
-
     /**
      * ViewResolver
      */
@@ -59,7 +53,8 @@ public class InstanceFactory {
         return getInstance(HANDLER_INVOKER, DefaulHandlerInvokerImpl.class);
     }
 
-    public static ViewResolverFactory getViewResolver() {
+    public static ViewResolverFactory getViewResolver(String viewConfig) {
+        if(viewConfig.equals("com.tinymvc.view.DefaultJspViewResolver"));
     	return getInstance(VIEW_RESOLVER,ViewResolverFactory.class);
     }
 
