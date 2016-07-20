@@ -9,7 +9,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-        "classpath*:beans.xml"})
+        "classpath*:appcontext-core.xml"})
 public class TinyMvcProxyBeanTest {
+
+    public void ProsyTest() {
+
+    }
 
 }
