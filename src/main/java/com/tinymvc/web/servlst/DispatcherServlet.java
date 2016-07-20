@@ -11,14 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tinymvc.handler.Handler;
+import com.tinymvc.handler.HandlerInvoker;
+import com.tinymvc.handler.HandlerMapping;
 import com.tinymvc.interceptor.Interceptor;
 
 import com.tinymvc.core.InstanceFactory;
 import com.tinymvc.util.SwitcherFactory;
 import com.tinymvc.view.*;
-import com.tinymvc.web.mapping.Handler;
-import com.tinymvc.web.mapping.HandlerMapping;
-
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -29,18 +29,13 @@ import javassist.bytecode.MethodInfo;
 
 
 public class DispatcherServlet extends FrameworkServlet {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -7148957052480828252L;
 
 	private ViewResolver viewResolver;
     private HandlerInvoker handlerInvoker;
-    
     private HandlerMapping handlerMapping;
-    
     private SwitcherFactory switcherFactory;
-
 	private Interceptor [] interceptors;
 
 	@Override

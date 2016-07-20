@@ -15,10 +15,6 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
 
     private static final Log logger = LogFactory.getLog(DefaultWebApplicationContext.class);
 
-    protected  static String CONFIGURATION_FILE = "";
-
-    protected Set<String> beanDefinitionNames = new HashSet<String>();
-
     protected List<Object> controllerBeans = new ArrayList<Object>();
 
     protected List<String> urlMapping = new ArrayList<String>();
