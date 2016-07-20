@@ -54,8 +54,13 @@ public class InstanceFactory {
     }
 
     public static ViewResolverFactory getViewResolver(String viewConfig) {
-        if(viewConfig.equals("com.tinymvc.view.DefaultJspViewResolver"));
-    	return getInstance(VIEW_RESOLVER,ViewResolverFactory.class);
+        if (viewConfig.equals("")||viewConfig==null) {
+            logger.info("默认使用Jsp视图");
+            return getInstance(VIEW_RESOLVER,ViewResolverFactory.class);
+        }
+        if(viewConfig.equals("com.tinymvc.view.FreeMakerViewResolverFactory"))
+            return null;
+        return null;
     }
 
     public static SwitcherFactory getSwitcherFactory() {
