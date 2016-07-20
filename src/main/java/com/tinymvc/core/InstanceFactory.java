@@ -2,7 +2,6 @@ package com.tinymvc.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import com.tinymvc.handler.DefaulHandlerInvokerImpl;
 import com.tinymvc.handler.DefaultHandlerMappingImpl;
 import com.tinymvc.handler.HandlerInvoker;
@@ -11,8 +10,6 @@ import com.tinymvc.view.ViewResolverFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.tinymvc.util.SwitcherFactory;
-import com.tinymvc.view.DefaultJspViewResolver;
-import com.tinymvc.view.JspViewResolverFactory;
 
 
 
