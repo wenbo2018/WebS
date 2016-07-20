@@ -10,15 +10,16 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
 import com.tinymvc.ioc.DefaultWebApplicationContext;
 import com.tinymvc.ioc.WebApplicationContext;
-
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class DefaultJspViewResolver implements ViewResolver {
 
 	private static final Log logger =LogFactory.getLog(DefaultJspViewResolver.class);
 	
 	private static List<String> jspPage=new ArrayList<String>();
-
 
 	public DefaultJspViewResolver() {
 		WebApplicationContext webApplicationContext = null;

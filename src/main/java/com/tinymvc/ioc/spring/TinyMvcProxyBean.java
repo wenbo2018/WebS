@@ -51,45 +51,7 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
         }
     }
 
-    private String getRootPath() {
-        String path = Thread.currentThread().getContextClassLoader().getResource("").toString();
-        path = path.replace('/', '\\');
-        path = path.replace("file:", "");
-        path = path.replace("classes\\", "");
-        path = path.substring(1);
-        return path;
-    }
 
-    public void getAllFileName(String path, ArrayList<String> fileName) {
-        File file = new File(path);
-        File[] files = file.listFiles();
-        String[] names = new String[files.length];
-        for (int i = 0; i < files.length; i++) {
-            names[i] = files[i].getAbsolutePath();
-        }
-        if (names != null)
-            fileName.addAll(Arrays.asList(names));
-        for (File a : files) {
-            if (a.isDirectory()) {
-                getAllFileName(a.getAbsolutePath(), fileName);
-            }
-        }
-    }
-
-    @Override
-    public void initUrlMapping() {
-        try {
-            this.rootPath = getRootPath() + "\\jsp";
-            ArrayList<String> listFileName = new ArrayList<String>();
-            getAllFileName(rootPath, listFileName);
-            for (String name : listFileName) {
-                String temp = name.substring(rootPath.length(), name.length());
-                urlMapping.add(temp.replace('\\', '/'));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {

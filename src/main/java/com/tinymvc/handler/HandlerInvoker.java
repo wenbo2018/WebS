@@ -1,9 +1,10 @@
-package com.tinymvc.view;
+package com.tinymvc.handler;
 
+
+import com.tinymvc.view.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.tinymvc.web.mapping.Handler;
 
 public interface HandlerInvoker {
 
@@ -15,6 +16,6 @@ public interface HandlerInvoker {
      * @param handler  Handler
      * @throws Exception 异常
      */
-    ModelAndView invokeHandler(HttpServletRequest request, HttpServletResponse response, 
-    		Handler handler,Object[] args) throws Exception;
+    ModelAndView invokeHandler(HttpServletRequest request, HttpServletResponse response,
+                               Handler handler, Object[] args) throws Exception;
 }
