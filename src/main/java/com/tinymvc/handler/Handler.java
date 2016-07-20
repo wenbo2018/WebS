@@ -7,6 +7,7 @@ public class Handler {
     private Method method;
     private Class<?>[] arguments;
 
+
     public Object getInstance() {
         return instance;
     }
@@ -40,6 +41,5 @@ public class Handler {
     public Handler(Object instance, Method method) {
         this(instance, method, method.getParameterTypes());
     }
-
 
 }
