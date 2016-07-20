@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.tinymvc.ioc.spring.TinyMvcApplicationContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.dom4j.DocumentException;
-import com.tinymvc.ioc.DefaultWebApplicationContext;
-import com.tinymvc.ioc.WebApplicationContext;
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +20,11 @@ public class DefaultJspViewResolver implements ViewResolver {
 	
 	private static List<String> jspPage=new ArrayList<String>();
 
+	@Resource
+	private TinyMvcApplicationContext tinyMvcApplicationContext;
+
 	public DefaultJspViewResolver() {
-		WebApplicationContext webApplicationContext = null;
-		try {
-			webApplicationContext = new DefaultWebApplicationContext();
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		jspPage=webApplicationContext.getResponse();
+		jspPage=tinyMvcApplicationContext.getResponse();
 	}
 	@Override
 	public void resolveView(ModelAndView m, HttpServletRequest req, HttpServletResponse resp) {

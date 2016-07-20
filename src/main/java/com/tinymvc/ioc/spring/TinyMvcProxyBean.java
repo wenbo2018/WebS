@@ -45,7 +45,7 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
     protected void initBeans() throws ClassNotFoundException {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         if (beanNames != null) {
-                for (String beanName : beanDefinitionNames) {
+                for (String beanName : beanNames) {
                     //根据Annotation获取控制器bean
                     if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(Controller.class) == true) {
                         controllerBeans.add(applicationContext.getBean(beanName));

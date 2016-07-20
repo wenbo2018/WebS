@@ -1,10 +1,8 @@
 package com.tinymvc.ioc.spring;
 
-import com.tinymvc.ioc.DefaultWebApplicationContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
-
 import java.io.File;
 import java.util.*;
 
@@ -13,7 +11,7 @@ import java.util.*;
  */
 public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplicationContext{
 
-    private static final Log logger = LogFactory.getLog(DefaultWebApplicationContext.class);
+    private static final Log logger = LogFactory.getLog(AbstractTinyMvcApplicationContext.class);
 
     protected List<Object> controllerBeans = new ArrayList<Object>();
 
