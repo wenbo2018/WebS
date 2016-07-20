@@ -2,29 +2,20 @@ package com.tinymvc.web.servlst;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import com.tinymvc.annotation.RequestMapping;
+import com.tinymvc.interceptor.Interceptor;
+
 import com.tinymvc.core.InstanceFactory;
-import com.tinymvc.ioc.ApplicationContext;
 import com.tinymvc.util.SwitcherFactory;
-import com.tinymvc.view.HandlerInvoker;
-import com.tinymvc.view.JspViewResolver;
-import com.tinymvc.view.ModelAndView;
-import com.tinymvc.view.ViewResolver;
+import com.tinymvc.view.*;
 import com.tinymvc.web.mapping.Handler;
 import com.tinymvc.web.mapping.HandlerMapping;
 
@@ -43,19 +34,21 @@ public class DispatcherServlet extends FrameworkServlet {
 	 */
 	private static final long serialVersionUID = -7148957052480828252L;
 
-	private JspViewResolver jspViewResolver;
-    
+	private ViewResolver viewResolver;
     private HandlerInvoker handlerInvoker;
     
     private HandlerMapping handlerMapping;
     
     private SwitcherFactory switcherFactory;
-    
+
+	private Interceptor [] interceptors;
+
 	@Override
 	protected void onRefresh(ServletConfig config) {
 		    handlerInvoker=InstanceFactory.getHandlerInvoker();
 		    handlerMapping=InstanceFactory.getHandlerMapping();
-		    jspViewResolver=InstanceFactory.getViewResolver();
+		    //这里获取配置参数,判断获取那个模板
+		    viewResolver=InstanceFactory.getViewResolver().getViewResolverInstance();
 	}
 
 	/*
@@ -115,7 +108,7 @@ public class DispatcherServlet extends FrameworkServlet {
      */
 	protected void doDispatch(ModelAndView mv, HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
-		if (jspViewResolver.containView(mv.getObject().toString() + ".jsp")) {
+		if (viewResolver.containView(mv.getObject().toString() + ".jsp")) {
 			if (mv.getMode() != null) {
 				Map<String, String> parMap = mv.getMode();
 				Iterator iter = parMap.entrySet().iterator();
@@ -128,7 +121,7 @@ public class DispatcherServlet extends FrameworkServlet {
 			response.sendError(400);
 		}
 		//返回视图;
-		jspViewResolver.resolveView(mv, request,response);
+		viewResolver.resolveView(mv, request,response);
 	}
 
 	/*

@@ -2,14 +2,16 @@ package com.tinymvc.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.tinymvc.view.ViewResolverFactory;
+import com.tinymvc.web.mapping.DefaultHandlerMappingImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.tinymvc.util.SwitcherFactory;
 import com.tinymvc.view.DefaultJspViewResolver;
 import com.tinymvc.view.HandlerInvoker;
-import com.tinymvc.view.JspViewResolver;
+import com.tinymvc.view.JspViewResolverFactory;
 import com.tinymvc.web.mapping.DefaulHandlerInvokerImpl;
-import com.tinymvc.web.mapping.DefaultHandlerMapping;
 import com.tinymvc.web.mapping.HandlerMapping;
 
 
@@ -39,7 +41,7 @@ public class InstanceFactory {
     /**
      * ViewResolver
      */
-    private static final String VIEW_RESOLVER = "com.tinymvc.view.DefaultJspViewResolver";
+    private static final String VIEW_RESOLVER = "com.tinymvc.view.ViewResolverFactory";
 
     
     private static final String SWITCH_FACTORY="com.tinymvc.util.SwitcherFactory";
@@ -49,7 +51,7 @@ public class InstanceFactory {
      * 获取 HandlerMapping
      */
     public static HandlerMapping getHandlerMapping() {
-        return getInstance(HANDLER_MAPPING, DefaultHandlerMapping.class);
+        return getInstance(HANDLER_MAPPING, DefaultHandlerMappingImpl.class);
     }
 
     /**
@@ -59,8 +61,8 @@ public class InstanceFactory {
         return getInstance(HANDLER_INVOKER, DefaulHandlerInvokerImpl.class);
     }
 
-    public static JspViewResolver getViewResolver() {
-    	return getInstance(VIEW_RESOLVER,DefaultJspViewResolver.class);
+    public static ViewResolverFactory getViewResolver() {
+    	return getInstance(VIEW_RESOLVER,ViewResolverFactory.class);
     }
 
     public static SwitcherFactory getSwitcherFactory() {

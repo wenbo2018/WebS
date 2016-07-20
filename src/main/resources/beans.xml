@@ -6,20 +6,10 @@
          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-   
-    <!-- 配置Redis缓存池（默认基于redis实现，所以只需要配置缓存池就可以了） -->
-	<bean id="redisSentinelPool" class="com.ksudi.proxycache.store.redis.RedisSentinelPool">
-	    <property name="hosts">
-	        <list>
-	            <value>127.0.0.1:26379</value>
-	            <value>127.0.0.2:26379</value>
-	        </list>
-	    </property>
-	    <property name="auth" value="123456" />
-	    <property name="maxIdle" value="5" />
-	    <property name="maxTotal" value="20" />
-	    <property name="maxWaitMillis" value="10000" />
-	    <property name="testOnBorrow" value="true" />
+
+	<bean id="app" class="com.tinymvc.ioc.spring.TinyMvcProxyBean">
+
 	</bean>
+
 </beans>
 
