@@ -20,9 +20,8 @@ import com.tinymvc.ioc.WebApplicationContext;
  * @author huangyong
  * @since 2.3
  */
-public class DefaultHandlerMapping implements HandlerMapping {
+public class DefaultHandlerMappingImpl implements HandlerMapping {
 
-	
 	private static Map<String,Handler> handlerMapping= new HashMap<String, Handler>();
 	
 	static{

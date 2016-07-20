@@ -1,10 +1,8 @@
 package com.tinymvc.view;
 
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.tinymvc.web.mapping.Handler;
 
 public interface HandlerInvoker {

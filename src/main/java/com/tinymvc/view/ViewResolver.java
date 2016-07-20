@@ -5,5 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface ViewResolver {
 
-	void resolveView(ModelAndView m,HttpServletRequest req,HttpServletResponse resp);
+	public void resolveView(ModelAndView m,HttpServletRequest req,HttpServletResponse resp);
+	public boolean containView(String path);
 }

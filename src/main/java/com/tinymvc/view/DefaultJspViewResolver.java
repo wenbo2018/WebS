@@ -3,6 +3,8 @@ package com.tinymvc.view;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,20 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.tinymvc.core.InstanceFactory;
 import com.tinymvc.ioc.DefaultWebApplicationContext;
 import com.tinymvc.ioc.WebApplicationContext;
 
-public class DefaultJspViewResolver implements JspViewResolver {
+public class DefaultJspViewResolver implements ViewResolver {
 
 	private static final Log logger =LogFactory.getLog(DefaultJspViewResolver.class);
 	
 	private static List<String> jspPage=new ArrayList<String>();
-	
-	static {
+
+
+	public DefaultJspViewResolver() {
 		WebApplicationContext webApplicationContext = null;
 		try {
 			webApplicationContext = new DefaultWebApplicationContext();
@@ -35,12 +35,18 @@ public class DefaultJspViewResolver implements JspViewResolver {
 		}
 		jspPage=webApplicationContext.getResponse();
 	}
-	
 	@Override
 	public void resolveView(ModelAndView m, HttpServletRequest req, HttpServletResponse resp) {
 		if(m!=null) {
-			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/" + m.getObject().toString()+".jsp");
 			try {
+			Pattern pattern =Pattern.compile("redict:");
+			Matcher matcher=pattern.matcher(m.getObject().toString());
+			//匹配成功说明是重定向;
+			if (matcher.matches()) {
+               String path=matcher.replaceFirst("");
+				resp.sendRedirect("/WEB-INF/jsp/" +path+".jsp");
+			}
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/jsp/" + m.getObject().toString()+".jsp");
 				rd.forward(req, resp);
 			} catch (ServletException e) {
 				e.printStackTrace();
@@ -51,7 +57,6 @@ public class DefaultJspViewResolver implements JspViewResolver {
 			logger.error("not find  jsp file");
 		}
 	}
-
 	@Override
 	public boolean containView(String path) {
 		return jspPage.contains(path);
