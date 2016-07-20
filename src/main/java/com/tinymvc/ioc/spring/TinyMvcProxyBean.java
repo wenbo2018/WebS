@@ -20,26 +20,17 @@ import java.util.Set;
 public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implements FactoryBean,ApplicationContextAware{
 
     private ApplicationContext applicationContext;
-
-    public TinyMvcProxyBean() throws DocumentException {
-        super();
-    }
+    /**
+     * Contoller 所在包的名字,通过参数进行注入
+     */
+    private  String contollerPackageName;
 
     /**
-     * 初始化上下文环境
+     * 构造函数,Bean注入进行初始化MVC上下文
+     * @throws DocumentException
      */
-    public void  init() {
-        System.err.println();
-    }
-
-    @Override
-    protected void getControllerPackagerName() {
-
-    }
-
-    @Override
-    protected void getControllerName() {
-
+    public TinyMvcProxyBean() throws DocumentException {
+        super();
     }
 
     @Override
@@ -59,6 +50,7 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
                 }
         }
     }
+
     private String getRootPath() {
         String path = Thread.currentThread().getContextClassLoader().getResource("").toString();
         path = path.replace('/', '\\');
@@ -83,7 +75,6 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
             }
         }
     }
-
 
     @Override
     public void initUrlMapping() {
@@ -118,5 +109,17 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
     @Override
     public boolean isSingleton() {
         return false;
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public String getContollerPackageName() {
+        return contollerPackageName;
+    }
+
+    public void setContollerPackageName(String contollerPackageName) {
+        this.contollerPackageName = contollerPackageName;
     }
 }

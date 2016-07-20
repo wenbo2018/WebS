@@ -11,6 +11,4 @@ public interface TinyMvcApplicationContext{
 
     public List<String> getResponse();
 
-    public String gett();
-
 }
