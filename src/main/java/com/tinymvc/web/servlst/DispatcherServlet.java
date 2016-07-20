@@ -47,7 +47,6 @@ public class DispatcherServlet extends FrameworkServlet {
 
     /***
      * 拦截服务
-     *
      * @param request
      * @param response
      * @throws Exception
@@ -104,7 +103,15 @@ public class DispatcherServlet extends FrameworkServlet {
         doDispatch(mView,request,response);
     }
 
-
+    /***
+     * 处理handler
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @param handlerInvoker
+     * @param parameters
+     */
     private  void  invokeHandlerInterceptors(HttpServletRequest request,HttpServletResponse response,
                                              Handler handler,ModelAndView modelAndView,
                                              HandlerInvoker handlerInvoker,Object[] parameters) {
