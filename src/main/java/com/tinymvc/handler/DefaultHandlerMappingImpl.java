@@ -1,18 +1,14 @@
-package com.tinymvc.web.mapping;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.dom4j.DocumentException;
+package com.tinymvc.handler;
 
 import com.tinymvc.annotation.RequestMapping;
 import com.tinymvc.ioc.DefaultWebApplicationContext;
 import com.tinymvc.ioc.WebApplicationContext;
+import org.dom4j.DocumentException;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 默认处理器映射
@@ -23,7 +19,7 @@ import com.tinymvc.ioc.WebApplicationContext;
 public class DefaultHandlerMappingImpl implements HandlerMapping {
 
 	private static Map<String,Handler> handlerMapping= new HashMap<String, Handler>();
-	
+
 	static{
 		    WebApplicationContext webApplicationContext = null;
 			try {

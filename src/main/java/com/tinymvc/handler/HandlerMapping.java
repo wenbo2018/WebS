@@ -1,4 +1,4 @@
-package com.tinymvc.web.mapping;
+package com.tinymvc.handler;
 
 /**
  * 处理器映射
