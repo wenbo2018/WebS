@@ -31,16 +31,16 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
     protected Map<String, Object> interceptorBeans = new HashMap<String, Object>();
 
     public AbstractTinyMvcApplicationContext() throws DocumentException {
-//        //获取Controller包名字;
-//        getControllerPackagerName();
-//        //获取Controller类名字;
-//        getControllerName();
-//        try {
-//            initBeans();
-//        } catch (ClassNotFoundException e) {
-//            logger.error("找不到类");
-//        }
-//        initUrlMapping();
+        //获取Controller包名字;
+        getControllerPackagerName();
+        //获取Controller类名字;
+        getControllerName();
+        try {
+            initBeans();
+        } catch (ClassNotFoundException e) {
+            logger.error("找不到类");
+        }
+        initUrlMapping();
     }
 
     protected abstract void getControllerPackagerName();
