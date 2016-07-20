@@ -31,10 +31,6 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
     protected Map<String, Object> interceptorBeans = new HashMap<String, Object>();
 
     public AbstractTinyMvcApplicationContext() throws DocumentException {
-        //获取Controller包名字;
-        getControllerPackagerName();
-        //获取Controller类名字;
-        getControllerName();
         try {
             initBeans();
         } catch (ClassNotFoundException e) {
@@ -42,10 +38,6 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
         }
         initUrlMapping();
     }
-
-    protected abstract void getControllerPackagerName();
-
-    protected abstract void getControllerName();
 
     protected abstract void initBeans() throws ClassNotFoundException;
 
@@ -59,10 +51,5 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
     @Override
     public List<String> getResponse() {
         return urlMapping;
-    }
-
-    @Override
-    public String gett() {
-        return "123";
     }
 }
