@@ -5,6 +5,5 @@ tiny-mvc是⼀款用于学习支持Java的轻量级MVC框架，tiny-mvc支持res
 的同学可以一起参与进来。
 ---------------------------- -------
 tiny-mvc请求处理流程图
-tiny-mvc是一款支持java的轻量级mvc框架。
 ==================================
  ![image](https://github.com/wenbo2018/tiny-mvc/blob/master/img/img.png)
