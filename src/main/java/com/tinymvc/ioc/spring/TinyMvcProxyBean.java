@@ -28,7 +28,6 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
      * 模板类型参数,通过参数进行注入
      */
     private  String templateParameterConfig;
-
     /**
      * 构造函数,Bean注入进行初始化MVC上下文
      * @throws DocumentException
@@ -52,10 +51,7 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
                     }
                     //拦截器bean
                     if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(InterceptorUrl.class) == true) {
-                        Annotation[] classAnnotation = applicationContext.getBean(beanName).getClass().getAnnotations();
-                        for (Annotation annotation : classAnnotation) {
-                            //interceptorBeans.put(annotation.annotationType(InterceptorUrl.class).getClass().getName());
-                        }
+                        interceptorBeans.put(beanName,applicationContext.getBean(beanName));
                     }
                 }
         }

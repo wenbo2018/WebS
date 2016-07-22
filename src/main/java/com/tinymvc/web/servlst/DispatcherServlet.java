@@ -98,8 +98,9 @@ public class DispatcherServlet extends FrameworkServlet {
             }
         }
         //处理拦截器请求
-        if (handler != null)
-            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker,parameters);
+        if (handler != null) {
+            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, parameters);
+        }
         doDispatch(mView,request,response);
     }
 
