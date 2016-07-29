@@ -49,7 +49,5 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	     onRefresh(config);
 	}
 	
-	protected void onRefresh(ServletConfig config) {
-		
-	}
+	protected abstract void onRefresh(ServletConfig config);
 }

@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
 
+    /**
+     * 拦截器url,通过Spring配置
+     */
+    private String urlString;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         return false;
@@ -18,5 +23,13 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+    }
+
+    public String getUrlString() {
+        return urlString;
+    }
+
+    public void setUrlString(String urlString) {
+        this.urlString = urlString;
     }
 }

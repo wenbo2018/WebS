@@ -113,7 +113,7 @@ public class DispatcherServlet extends FrameworkServlet {
      * @param handlerInvoker
      * @param parameters
      */
-    private  void  invokeHandlerInterceptors(HttpServletRequest request,HttpServletResponse response,
+    private void invokeHandlerInterceptors(HttpServletRequest request,HttpServletResponse response,
                                              Handler handler,ModelAndView modelAndView,
                                              HandlerInvoker handlerInvoker,Object[] parameters) {
         HandlerInterceptorChain handlerInterceptorChain=new HandlerInterceptorChain(handlerInvoker,handlerInterceptors,parameters);
