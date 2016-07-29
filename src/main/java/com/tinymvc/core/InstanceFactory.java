@@ -35,6 +35,9 @@ public class InstanceFactory {
      */
     private static final String VIEW_RESOLVER = "com.tinymvc.view.ViewResolverFactory";
 
+    /**
+     * 参数转换工厂
+     */
     
     private static final String SWITCH_FACTORY="com.tinymvc.util.SwitcherFactory";
     

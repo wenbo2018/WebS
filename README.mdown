@@ -1,9 +1,10 @@
-tiny-mvc是一款支持java的轻量级mvc框架。
+tiny-mvc is a lightweight MVC framework that supports Java。
 ==================================
-tiny-mvc是⼀款用于学习支持Java的轻量级MVC框架，tiny-mvc支持rest风格URL、Annotation配置, tiny-mvc集成了Spring IOC同时
-支持扩展其他IOC容器，支持视图模板扩展默认实现了Jsp。该框架主要用于自己学习，其中有些内容也参考了网上其他人写的框架，如果有兴趣
-的同学可以一起参与进来。
+tiny-mvc is a  Java lightweight MVC framework that is mainly used for learning . tiny-mvc support restful URLs, annotation configuration, tiny-mvc integrated the spring
+IOC also support extended to other IOC container, supporting the view template extension default implementation of JSP. The framework is mainly used for their
+ own learning, some of which also refer to the framework of other people to write online, if you are interested in
+Students can join in.
 ---------------------------- -------
-tiny-mvc请求处理流程图
+tiny-mvc request processing flow chart
 ==================================
  ![image](https://github.com/wenbo2018/tiny-mvc/blob/master/img/img.png)

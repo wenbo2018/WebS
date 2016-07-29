@@ -6,30 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by shenwenbo on 16/7/3.
+ * Created by shenwenbo on 16/7/22.
  */
-public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
-
-    /**
-     * 拦截器url,通过Spring配置
-     */
-    private String urlString;
-
+public class InterceptorTest extends AbstractHandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        return false;
+        return super.preHandle(request, response, handler, modelAndView);
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-    }
-
-    public String getUrlString() {
-        return urlString;
-    }
-
-    public void setUrlString(String urlString) {
-        this.urlString = urlString;
+        super.postHandle(request, response, handler);
     }
 }

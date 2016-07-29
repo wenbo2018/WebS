@@ -98,8 +98,9 @@ public class DispatcherServlet extends FrameworkServlet {
             }
         }
         //处理拦截器请求
-        if (handler != null)
-            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker,parameters);
+        if (handler != null) {
+            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, parameters);
+        }
         doDispatch(mView,request,response);
     }
 
@@ -112,7 +113,7 @@ public class DispatcherServlet extends FrameworkServlet {
      * @param handlerInvoker
      * @param parameters
      */
-    private  void  invokeHandlerInterceptors(HttpServletRequest request,HttpServletResponse response,
+    private void invokeHandlerInterceptors(HttpServletRequest request,HttpServletResponse response,
                                              Handler handler,ModelAndView modelAndView,
                                              HandlerInvoker handlerInvoker,Object[] parameters) {
         HandlerInterceptorChain handlerInterceptorChain=new HandlerInterceptorChain(handlerInvoker,handlerInterceptors,parameters);

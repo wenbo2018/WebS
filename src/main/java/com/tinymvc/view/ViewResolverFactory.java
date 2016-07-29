@@ -3,7 +3,9 @@ package com.tinymvc.view;
 
 /**
  * Created by shenwenbo on 16/7/16.
+ * 抽象工厂
  */
+
 public abstract class ViewResolverFactory {
 
     private static ViewResolverFactory instance;
