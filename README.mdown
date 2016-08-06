@@ -1,7 +1,7 @@
-tiny-mvc is a lightweight MVC framework that supports Java。
+tiny-mvc is a lightweight MVC framework that supports Java.
 ==================================
-tiny-mvc is a  Java lightweight MVC framework that is mainly used for learning . tiny-mvc support restful URLs, annotation configuration, tiny-mvc integrated the spring
-IOC also support extended to other IOC container, supporting the view template extension default implementation of JSP. The framework is mainly used for their
+tiny-mvc is a  Java lightweight MVC framework that is mainly used for learning . tiny-mvc support restful URLs, annotation configuration and tiny-mvc is integrated with spring
+IOC also can extended  other IOC container, supporting the view template extension ,default implementation of JSP. The framework is mainly used for their
  own learning, some of which also refer to the framework of other people to write online, if you are interested in
 Students can join in.
 ---------------------------- -------
