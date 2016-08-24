@@ -1,7 +1,7 @@
 package com.tinymvc.handler;
 
 import com.tinymvc.annotation.RequestMapping;
-import com.tinymvc.ioc.spring.TinyMvcApplicationContext;
+import com.tinymvc.ioc.spring.WebApplicationContext;
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -14,11 +14,11 @@ public class DefaultHandlerMappingImpl implements HandlerMapping {
 	private static Map<String,Handler> handlerMapping= new HashMap<String, Handler>();
 
 	@Resource
-	private TinyMvcApplicationContext tinyMvcApplicationContext;
+	private WebApplicationContext webApplicationContext;
 
 	DefaultHandlerMappingImpl() {
 
-		List<Object> controllerBean =tinyMvcApplicationContext.getController();
+		List<Object> controllerBean = webApplicationContext.getController();
 		int size = controllerBean.size();
 		for (int i = 0; i < size; i++) {
 			Object obj = controllerBean.get(i);

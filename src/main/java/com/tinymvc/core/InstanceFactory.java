@@ -61,6 +61,7 @@ public class InstanceFactory {
             logger.info("默认使用Jsp视图");
             return getInstance(VIEW_RESOLVER,ViewResolverFactory.class);
         }
+        //使用freeMaker视图
         if(viewConfig.equals("com.tinymvc.view.FreeMakerViewResolverFactory"))
             return null;
         return null;

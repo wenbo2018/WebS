@@ -3,9 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.scut.xiaoqu</groupId>
   <artifactId>ting-mvc</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>ting-mvc Maven Webapp</name>
+	<modules>
+		<module>../tiny-mvc-demo</module>
+	</modules>
+	<name>ting-mvc Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 	 <dependency>
