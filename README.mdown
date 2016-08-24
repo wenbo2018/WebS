@@ -7,4 +7,4 @@ Students can join in.
 ---------------------------- -------
 tiny-mvc request processing flow chart
 ==================================
- ![image](https://github.com/wenbo2018/tiny-mvc/blob/master/img/img.png)
+ ![image](https://github.com/wenbo2018/tiny-mvc/blob/master/tiny-mvc-framework.png)

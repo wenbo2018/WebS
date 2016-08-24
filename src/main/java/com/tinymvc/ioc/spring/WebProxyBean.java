@@ -2,12 +2,13 @@ package com.tinymvc.ioc.spring;
 
 import com.tinymvc.annotation.Controller;
 import com.tinymvc.annotation.InterceptorUrl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentException;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import java.lang.annotation.Annotation;
 
 /**
  * Created by shenwenbo on 16/7/16.
@@ -15,7 +16,10 @@ import java.lang.annotation.Annotation;
 /**
  * MVC上下文初始化中心
  */
-public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implements FactoryBean,ApplicationContextAware{
+public class WebProxyBean extends AbstractWebApplicationContext implements FactoryBean,ApplicationContextAware{
+
+    private static final Log Logger = LogFactory.getLog(WebProxyBean.class);
+
     /**
      * Spring上下文
      */
@@ -32,9 +36,22 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
      * 构造函数,Bean注入进行初始化MVC上下文
      * @throws DocumentException
      */
-    public TinyMvcProxyBean() throws DocumentException {
+    public WebProxyBean() throws DocumentException {
         super();
     }
+
+    /**
+     * Spring初始化方法init,需要在配置Spring bean时进行配置;
+     */
+    public void init() {
+        try {
+            initBeans();
+        } catch (ClassNotFoundException e) {
+            Logger.error("not find class exception");
+        }
+    }
+
+
 
     /**
      * MVC控制器参数注入;
@@ -44,20 +61,20 @@ public class TinyMvcProxyBean extends AbstractTinyMvcApplicationContext implemen
     protected void initBeans() throws ClassNotFoundException {
         String[] beanNames = applicationContext.getBeanDefinitionNames();
         if (beanNames != null) {
-                for (String beanName : beanNames) {
-                    //根据Annotation获取控制器bean
-                    if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(Controller.class) == true) {
-                        controllerBeans.add(applicationContext.getBean(beanName));
-                    }
-                    //拦截器bean
-                    if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(InterceptorUrl.class) == true) {
-                        interceptorBeans.put(beanName,applicationContext.getBean(beanName));
-                    }
+            for (String beanName : beanNames) {
+                //根据Annotation获取控制器bean
+                if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(Controller.class) == true) {
+                    controllerBeans.add(applicationContext.getBean(beanName));
                 }
+                //拦截器bean
+                if (applicationContext.getBean(beanName).getClass().isAnnotationPresent(InterceptorUrl.class) == true) {
+                    interceptorBeans.put(beanName,applicationContext.getBean(beanName));
+                }
+            }
         }
     }
     /**
-     * 获取Spring上下问实现类
+     * 获取Spring上下文实现类
      * @param applicationContext
      * @throws BeansException
      */

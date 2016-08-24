@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.tinymvc.ioc.spring.TinyMvcApplicationContext;
+import com.tinymvc.ioc.spring.WebApplicationContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import javax.annotation.Resource;
@@ -21,11 +21,12 @@ public class DefaultJspViewResolver implements ViewResolver {
 	private static List<String> jspPage=new ArrayList<String>();
 
 	@Resource
-	private TinyMvcApplicationContext tinyMvcApplicationContext;
+	private WebApplicationContext webApplicationContext;
 
 	public DefaultJspViewResolver() {
-		jspPage=tinyMvcApplicationContext.getResponse();
+		jspPage= webApplicationContext.getResponse();
 	}
+
 	@Override
 	public void resolveView(ModelAndView m, HttpServletRequest req, HttpServletResponse resp) {
 		if(m!=null) {

@@ -9,9 +9,9 @@ import java.util.*;
 /**
  * Created by shenwenbo on 16/7/16.
  */
-public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplicationContext{
+public abstract class AbstractWebApplicationContext implements WebApplicationContext {
 
-    private static final Log logger = LogFactory.getLog(AbstractTinyMvcApplicationContext.class);
+    private static final Log logger = LogFactory.getLog(AbstractWebApplicationContext.class);
 
     protected List<Object> controllerBeans = new ArrayList<Object>();
 
@@ -21,7 +21,7 @@ public abstract class AbstractTinyMvcApplicationContext implements TinyMvcApplic
 
     protected Map<String, Object> interceptorBeans = new HashMap<String, Object>();
 
-    public AbstractTinyMvcApplicationContext() throws DocumentException {
+    public AbstractWebApplicationContext(){
         try {
             initBeans();
         } catch (ClassNotFoundException e) {
