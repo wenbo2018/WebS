@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.wenbo2018</groupId>
-    <artifactId>ting-mvc</artifactId>
-    <name>ting-mvc</name>
+    <artifactId>tiny-mvc</artifactId>
+    <name>tiny-mvc</name>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -126,4 +126,8 @@
             <version>RELEASE</version>
         </dependency>
     </dependencies>
+    <modules>
+        <module>tinymvc-core</module>
+        <module>tinymvc-demo</module>
+    </modules>
 </project>
