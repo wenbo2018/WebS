@@ -1,10 +1,10 @@
-tiny-mvc is a lightweight MVC framework that supports Java.
+WebS is a lightweight and simple MVC framework that supports Java.
 ==================================
-tiny-mvc is a  Java lightweight MVC framework that is mainly used for learning . tiny-mvc support restful URLs, annotation configuration and tiny-mvc is integrated with spring
+WebS is a  Java lightweight and simple MVC framework that is mainly used for learning . WebS support restful URLs, annotation configuration and WebS is integrated with spring
 IOC also can extended  other IOC container, supporting the view template extension ,default implementation of JSP. The framework is mainly used for their
  own learning, some of which also refer to the framework of other people to write online, if you are interested in
 Students can join in.
 ---------------------------- -------
-tiny-mvc request processing flow chart
+WebS request processing flow chart
 ==================================
  ![image](https://github.com/wenbo2018/WebS/blob/master/webs.png)
