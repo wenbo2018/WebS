@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github.wenbo2018</groupId>
-    <artifactId>tiny-mvc</artifactId>
+    <artifactId>webs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>tinymvc-core</artifactId>
-  <name>tinymvc-core</name>
+  <artifactId>webs-core</artifactId>
+  <name>webs-core</name>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <url>http://maven.apache.org</url>

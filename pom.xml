@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.wenbo2018</groupId>
-    <artifactId>tiny-mvc</artifactId>
-    <name>tiny-mvc</name>
+    <artifactId>webs</artifactId>
+    <name>webs</name>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
@@ -127,7 +127,7 @@
         </dependency>
     </dependencies>
     <modules>
-        <module>tinymvc-core</module>
-        <module>tinymvc-demo</module>
+        <module>webs-core</module>
+        <module>webs-demo</module>
     </modules>
 </project>
