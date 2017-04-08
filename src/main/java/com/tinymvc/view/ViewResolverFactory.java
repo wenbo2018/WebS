@@ -8,15 +8,15 @@ package com.tinymvc.view;
 
 public abstract class ViewResolverFactory {
 
-    private static ViewResolverFactory instance;
-
-    public static ViewResolverFactory getInstance() {
-        return instance;
-    }
-
-    public static void setInstance(ViewResolverFactory instance) {
-        ViewResolverFactory.instance = instance;
-    }
+//    private static ViewResolverFactory instance;
+//
+//    public static ViewResolverFactory getInstance() {
+//        return instance;
+//    }
+//
+//    public static void setInstance(ViewResolverFactory instance) {
+//        ViewResolverFactory.instance = instance;
+//    }
 
     /**
      * 初始化
