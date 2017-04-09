@@ -4,7 +4,6 @@ package com.github.wenbo2018.webs.core;
 import com.github.wenbo2018.webs.handler.DefaulHandlerInvokerImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import com.github.wenbo2018.webs.handler.DefaultHandlerMappingImpl;
 import com.github.wenbo2018.webs.handler.HandlerInvoker;
 import com.github.wenbo2018.webs.handler.HandlerMapping;
 import com.github.wenbo2018.webs.util.SwitcherFactory;
@@ -47,7 +46,7 @@ public class InstanceFactory {
      * 获取 HandlerMapping
      */
     public static HandlerMapping getHandlerMapping() {
-        return getInstance(HANDLER_MAPPING, DefaultHandlerMappingImpl.class);
+        return getInstance(HANDLER_MAPPING, null);
     }
 
     /**

@@ -8,5 +8,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequestMapping {
-	String value() default "";
+	String requestUrl() default "";
+	String responseUrl() default "";
+	String controllerUrl() default "";
 }
