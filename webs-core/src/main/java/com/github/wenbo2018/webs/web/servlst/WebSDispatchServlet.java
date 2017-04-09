@@ -2,9 +2,9 @@ package com.github.wenbo2018.webs.web.servlst;
 
 
 import com.github.wenbo2018.webs.context.ApplicationContext;
-import com.github.wenbo2018.webs.core.InstanceFactory;
 import com.github.wenbo2018.webs.extension.ExtensionServiceLoader;
 import com.github.wenbo2018.webs.interceptor.HandlerInterceptor;
+import com.github.wenbo2018.webs.interceptor.WebsInterceptor;
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -15,13 +15,14 @@ import javassist.bytecode.MethodInfo;
 import com.github.wenbo2018.webs.handler.Handler;
 import com.github.wenbo2018.webs.handler.HandlerInvoker;
 import com.github.wenbo2018.webs.handler.HandlerMapping;
-import com.github.wenbo2018.webs.interceptor.HandlerInterceptorChain;
+import com.github.wenbo2018.webs.interceptor.HandlerInterceptorWrapper;
 import com.github.wenbo2018.webs.util.SwitcherFactory;
 import com.github.wenbo2018.webs.view.ModelAndView;
 import com.github.wenbo2018.webs.view.ViewResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,11 +36,14 @@ import java.util.Map;
 
 public class WebSDispatchServlet extends FrameworkServlet {
 
+    private static Logger logger = LoggerFactory.getLogger(WebSDispatchServlet.class);
+
     private static final long serialVersionUID = -7148957052480828252L;
 
     private ViewResolver viewResolver;
     private HandlerInvoker handlerInvoker;
     private HandlerMapping handlerMapping;
+    private WebsInterceptor interceptor;
     private SwitcherFactory switcherFactory;
     private HandlerInterceptor[] handlerInterceptors;
     private List<HandlerMapping> handlerMappings;
@@ -54,7 +58,9 @@ public class WebSDispatchServlet extends FrameworkServlet {
         initHandlerMappings(context);
         initViewResolvers(context);
         initHandlerInvoker(context);
+        initInterceptor(context);
     }
+
 
     private void initHandlerInvoker(ApplicationContext context) {
         this.handlerInvoker = null;
@@ -67,9 +73,9 @@ public class WebSDispatchServlet extends FrameworkServlet {
         try {
             handlerMapping.init(context);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            logger.error("handlerMapping init fail", e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            logger.error("handlerMapping init fail", e);
         }
     }
 
@@ -79,20 +85,22 @@ public class WebSDispatchServlet extends FrameworkServlet {
         try {
             viewResolver.init(context);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            logger.error("viewResolver init fail", e);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            logger.error("viewResolver init fail", e);
         }
     }
 
-
-    @Override
-    protected void onRefresh(ServletConfig servletConfig, ServletContext servletContext) {
-        handlerInvoker = InstanceFactory.getHandlerInvoker();
-        handlerMapping = InstanceFactory.getHandlerMapping();
-        //这里获取配置参数,判断获取模板
-        viewResolver = InstanceFactory.getViewResolver(
-                servletConfig.getInitParameter("viewConfig")).getViewResolverInstance();
+    private void initInterceptor(ApplicationContext context) {
+        interceptor = null;
+        interceptor = ExtensionServiceLoader.getExtension(WebsInterceptor.class);
+        try {
+            interceptor.init(context);
+        } catch (IllegalAccessException e) {
+            logger.error("interceptor init fail", e);
+        } catch (InstantiationException e) {
+            logger.error("interceptor init fail", e);
+        }
     }
 
 
@@ -102,12 +110,8 @@ public class WebSDispatchServlet extends FrameworkServlet {
         String url = request.getRequestURI();
         Handler handler = handlerMapping.getHandler(url);
         if (handler == null) {
-            try {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "");
-            } catch (Exception e) {
-                logger.error("发送错误代码出错！", e);
-                throw new RuntimeException(e);
-            }
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+            rd.forward(request, response);
             return;
         }
         ModelAndView mView = new ModelAndView();
@@ -139,24 +143,24 @@ public class WebSDispatchServlet extends FrameworkServlet {
                     }
                 }
             }
+            if (handler != null) {
+                invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, parameters);
+            }
         }
-        if (handler != null) {
-            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, parameters);
-        }
+
         doDispatch(mView, request, response);
     }
 
 
-    private void invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response,
-                                           Handler handler, ModelAndView modelAndView,
+    private void invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response, Handler handler, ModelAndView modelAndView,
                                            HandlerInvoker handlerInvoker, Object[] parameters) {
-        HandlerInterceptorChain handlerInterceptorChain =
-                new HandlerInterceptorChain(handlerInvoker, handlerInterceptors, parameters);
+        List<HandlerInterceptor> handlerInterceptors = interceptor.getInterceptor();
+        HandlerInterceptorWrapper handlerInterceptorChain = new HandlerInterceptorWrapper(handlerInvoker, handlerInterceptors, parameters);
         try {
             handlerInterceptorChain.exeInterceptor(request, response, handler);
             handlerInterceptorChain.exeAfterInterceptor(request, response, handler);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("handler chain invoker fail", e);
         }
     }
 
