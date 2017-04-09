@@ -8,6 +8,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface ViewResolver {
 
 	public void resolveView(ModelAndView m, HttpServletRequest req, HttpServletResponse resp);
-	public boolean containView(String path);
-	public void init(ApplicationContext applicationContext);
+	public void init(ApplicationContext applicationContext) throws IllegalAccessException, InstantiationException;
 }

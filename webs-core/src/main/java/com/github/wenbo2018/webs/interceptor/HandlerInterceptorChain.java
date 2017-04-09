@@ -34,11 +34,13 @@ public class HandlerInterceptorChain {
     public void exeInterceptor(HttpServletRequest request, HttpServletResponse response,
                                Handler handler)throws Exception{
         boolean flag=true;
-        for (int i = 0; i < handlerInterceptors.length; i++) {
-            HANDLER_INTERCEPTOR_SIZE=i;
-            if(!handlerInterceptors[i].preHandle(request,response,handler,modelAndView)){
-                flag=false;
-                break;
+        if (handlerInterceptors!=null) {
+            for (int i = 0; i < handlerInterceptors.length; i++) {
+                HANDLER_INTERCEPTOR_SIZE = i;
+                if (!handlerInterceptors[i].preHandle(request, response, handler, modelAndView)) {
+                    flag = false;
+                    break;
+                }
             }
         }
         if (flag) {
@@ -48,10 +50,13 @@ public class HandlerInterceptorChain {
 
     public void exeAfterInterceptor(HttpServletRequest request, HttpServletResponse response,
                                     Object handler) throws  Exception{
-        if(handlerInterceptors.length!=0){
-            for (int i =HANDLER_INTERCEPTOR_SIZE; i>= 0; i--) {
-                handlerInterceptors[i].postHandle(request,response,handler);
+        if (handlerInterceptors!=null) {
+            if(handlerInterceptors.length!=0){
+                for (int i =HANDLER_INTERCEPTOR_SIZE; i>= 0; i--) {
+                    handlerInterceptors[i].postHandle(request,response,handler);
+                }
             }
         }
+
     }
 }

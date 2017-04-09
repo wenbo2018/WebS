@@ -11,6 +11,6 @@ public interface HandlerMapping {
 
     Handler getHandler(HttpServletRequest request);
 
-    void init(ApplicationContext applicationContext);
+    void init(ApplicationContext applicationContext) throws IllegalAccessException, InstantiationException;
 
 }

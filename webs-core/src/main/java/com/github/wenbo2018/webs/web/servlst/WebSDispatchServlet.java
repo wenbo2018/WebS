@@ -66,13 +66,25 @@ public class WebSDispatchServlet extends FrameworkServlet {
     private void initHandlerMappings(ApplicationContext context) {
         this.handlerMapping = null;
         handlerMapping = ExtensionServiceLoader.getExtension(HandlerMapping.class);
-        handlerMapping.init(context);
+        try {
+            handlerMapping.init(context);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initViewResolvers(ApplicationContext context) {
         this.viewResolver = null;
         viewResolver = ExtensionServiceLoader.getExtension(ViewResolver.class);
-        viewResolver.init(context);
+        try {
+            viewResolver.init(context);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -91,7 +103,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
         // 设置请求编码方式
         request.setCharacterEncoding("UTF-8");
         // 获取当前请求相关数据
-        String url = request.getServletPath();
+        String url = request.getRequestURI();
         Handler handler = handlerMapping.getHandler(url);
         if (handler == null) {
             try {
@@ -102,7 +114,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
             }
             return;
         }
-        ModelAndView mView = null;
+        ModelAndView mView = new ModelAndView();
         Method method = handler.getMethod();
         Object[] parameters = null;
         Map<String, String[]> parameters_name_args = request.getParameterMap();
@@ -142,7 +154,8 @@ public class WebSDispatchServlet extends FrameworkServlet {
     private void invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response,
                                            Handler handler, ModelAndView modelAndView,
                                            HandlerInvoker handlerInvoker, Object[] parameters) {
-        HandlerInterceptorChain handlerInterceptorChain = new HandlerInterceptorChain(handlerInvoker, handlerInterceptors, parameters);
+        HandlerInterceptorChain handlerInterceptorChain =
+                new HandlerInterceptorChain(handlerInvoker, handlerInterceptors, parameters);
         try {
             handlerInterceptorChain.exeInterceptor(request, response, handler);
             handlerInterceptorChain.exeAfterInterceptor(request, response, handler);
@@ -152,9 +165,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
     }
 
 
-    protected void doDispatch(ModelAndView mv, HttpServletRequest request,
-                              HttpServletResponse response) throws Exception {
-        if (viewResolver.containView(mv.getObject().toString() + ".jsp")) {
+    protected void doDispatch(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
             if (mv.getMode() != null) {
                 Map<String, String> parMap = mv.getMode();
                 Iterator iter = parMap.entrySet().iterator();
@@ -163,10 +174,6 @@ public class WebSDispatchServlet extends FrameworkServlet {
                     request.setAttribute((String) entry.getKey(), entry.getValue());
                 }
             }
-        } else {
-            response.sendError(400);
-        }
-        //返回视图
         viewResolver.resolveView(mv, request, response);
     }
 
