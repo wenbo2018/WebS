@@ -8,3 +8,38 @@ Students can join in.
 WebS request processing flow chart
 ==================================
  ![image](https://github.com/wenbo2018/WebS/blob/master/webs.png)
+
+
+ ## Quick Config
+
+```xml
+
+  <!--WebS config servlet-->
+    <servlet>
+        <servlet-name>webs</servlet-name>
+        <servlet-class>com.github.wenbo2018.webs.web.servlst.WebSDispatchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>webs</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!--WebS config-->
+    <listener>
+        <listener-class>com.github.wenbo2018.webs.context.WebsContextLoaderListener</listener-class>
+    </listener>
+
+```
+
+
+```xml
+@RequestMapping(controllerUrl ="/index")
+@WebsController
+public class UserController {
+
+    @RequestMapping(requestUrl = "/test",responseUrl = "index")
+    public void userController() {
+        System.out.println("test");
+    }
+}
+
+```

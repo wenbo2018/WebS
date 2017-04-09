@@ -25,7 +25,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.HTMLDocument;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
@@ -43,7 +42,6 @@ public class WebSDispatchServlet extends FrameworkServlet {
     private HandlerMapping handlerMapping;
     private SwitcherFactory switcherFactory;
     private HandlerInterceptor[] handlerInterceptors;
-
     private List<HandlerMapping> handlerMappings;
     private List<HandlerInvoker> handlerInvokers;
 
@@ -59,8 +57,8 @@ public class WebSDispatchServlet extends FrameworkServlet {
     }
 
     private void initHandlerInvoker(ApplicationContext context) {
-        this.handlerInvoker=null;
-        handlerInvoker=ExtensionServiceLoader.getExtension(HandlerInvoker.class);
+        this.handlerInvoker = null;
+        handlerInvoker = ExtensionServiceLoader.getExtension(HandlerInvoker.class);
     }
 
     private void initHandlerMappings(ApplicationContext context) {
@@ -100,9 +98,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
 
     @Override
     protected void doService(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 设置请求编码方式
         request.setCharacterEncoding("UTF-8");
-        // 获取当前请求相关数据
         String url = request.getRequestURI();
         Handler handler = handlerMapping.getHandler(url);
         if (handler == null) {
@@ -166,14 +162,14 @@ public class WebSDispatchServlet extends FrameworkServlet {
 
 
     protected void doDispatch(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) throws Exception {
-            if (mv.getMode() != null) {
-                Map<String, String> parMap = mv.getMode();
-                Iterator iter = parMap.entrySet().iterator();
-                while (iter.hasNext()) {
-                    Map.Entry entry = (Map.Entry) iter.next();
-                    request.setAttribute((String) entry.getKey(), entry.getValue());
-                }
+        if (mv.getMode() != null) {
+            Map<String, String> parMap = mv.getMode();
+            Iterator iter = parMap.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                request.setAttribute((String) entry.getKey(), entry.getValue());
             }
+        }
         viewResolver.resolveView(mv, request, response);
     }
 
