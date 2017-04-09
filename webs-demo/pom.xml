@@ -16,4 +16,12 @@
         <maven.compiler.target>1.7</maven.compiler.target>
         <encoding>UTF-8</encoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.github.wenbo2018</groupId>
+            <artifactId>webs-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
 </project>
