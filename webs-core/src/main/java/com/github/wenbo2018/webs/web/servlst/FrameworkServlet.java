@@ -3,6 +3,8 @@ package com.github.wenbo2018.webs.web.servlst;
 import com.github.wenbo2018.webs.context.ApplicationContext;
 import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
 import com.github.wenbo2018.webs.util.WebsWebApplicationContextUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -14,6 +16,7 @@ import java.io.IOException;
 public abstract class FrameworkServlet extends HttpServletBean {
 
     private static final long serialVersionUID = 1L;
+    private static Logger logger = LoggerFactory.getLogger(FrameworkServlet.class);
     private WebsWebApplicationContext websWebApplicationContext;
     private boolean publishContext = true;
 
@@ -42,12 +45,11 @@ public abstract class FrameworkServlet extends HttpServletBean {
     }
 
 
-    protected final void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected final void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             doService(request, response);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("servlet invoke fail", e);
         } finally {
 
         }
@@ -57,15 +59,11 @@ public abstract class FrameworkServlet extends HttpServletBean {
     @Override
     protected void initServletBean(ServletConfig servletConfig) throws ServletException {
         this.websWebApplicationContext = initWebApplicationContext();
-//        onRefresh(servletConfig,getServletContext());
         onRefresh(this.websWebApplicationContext);
     }
 
 
-
-    protected abstract void onRefresh(ServletConfig servletConfig, ServletContext servletContext);
-
-    protected  void onRefresh(ApplicationContext context){
+    protected void onRefresh(ApplicationContext context) {
 
     }
 

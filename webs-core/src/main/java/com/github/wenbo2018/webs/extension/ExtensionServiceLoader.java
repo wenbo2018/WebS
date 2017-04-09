@@ -30,12 +30,7 @@ public class ExtensionServiceLoader<T> {
     }
 
 
-    /**
-     * 根据实现类名获取指定扩展节点
-     * @param classType
-     * @param <T>
-     * @return
-     */
+
     public <T> T getExtension(String classType) {
         T extension = (T) cachedInstances.get(classType);
         if (extension != null)
@@ -94,7 +89,7 @@ public class ExtensionServiceLoader<T> {
     }
 
     /***
-     * 获取某个接口的扩展，参考dubbo
+     * 获取某个接口的扩展，参考dubbo设计
      * @param type
      * @param <T>
      * @return

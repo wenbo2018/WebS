@@ -11,24 +11,27 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
 
-
-    private String urlString;
+    private String url;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+                             Object handler, ModelAndView modelAndView) throws Exception {
         return false;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response,
+                           Object handler) throws Exception {
 
     }
 
-    public String getUrlString() {
-        return urlString;
+    @Override
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public void setUrlString(String urlString) {
-        this.urlString = urlString;
+    @Override
+    public String getUrl() {
+        return this.url;
     }
 }

@@ -15,4 +15,8 @@ public class UserController {
         System.out.println("test");
     }
 
+    @RequestMapping(requestUrl = "/user",responseUrl = "index")
+    public void test2() {
+        System.out.println("test");
+    }
 }
