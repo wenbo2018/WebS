@@ -10,15 +10,9 @@ public class SwitcherFactory {
 	
 	private final Log log = LogFactory.getLog(getClass());
 
-	private Map<Class<?>, Switcher<?>> map = new HashMap<Class<?>, Switcher<?>>();
+	private static Map<Class<?>, Switcher<?>> map = new HashMap<Class<?>, Switcher<?>>();
 
-	public SwitcherFactory() {
-		loadParameters();
-	}
-	/*
-     * 获取转换接口
-     */
-	private void loadParameters() {
+	static {
 		Switcher<?> switcher = null;
 		switcher = new TypeConvertUtil.BooleanSwitcher();
 		map.put(boolean.class, switcher);
@@ -52,8 +46,9 @@ public class SwitcherFactory {
 		map.put(double.class, switcher);
 		map.put(Double.class, switcher);
 	}
+
     
-	public Object switcher(Class<?> clazz, String s) throws Exception {
+	public static Object switcher(Class<?> clazz, String s) throws Exception {
 		Switcher<?> switcher = map.get(clazz);
 		return switcher.switcher(s);
 	}

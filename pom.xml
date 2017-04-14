@@ -6,7 +6,12 @@
     <name>webs</name>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/wenbo2018/WebS</url>
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -137,4 +142,6 @@
         <module>webs-core</module>
         <module>webs-demo</module>
     </modules>
+
+
 </project>

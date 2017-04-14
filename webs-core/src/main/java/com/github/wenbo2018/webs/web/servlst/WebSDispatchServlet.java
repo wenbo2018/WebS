@@ -21,7 +21,6 @@ import com.github.wenbo2018.webs.view.ModelAndView;
 import com.github.wenbo2018.webs.view.ViewResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -136,7 +135,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
                     parameters[i] = args;
                 } else {
                     try {
-                        parameters[i] = switcherFactory.switcher(clazz[i], args);
+                        parameters[i] = SwitcherFactory.switcher(clazz[i], args);
                     } catch (Exception e) {
                         response.sendError(400);
                         break;
