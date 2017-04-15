@@ -9,6 +9,13 @@ WebS request processing flow chart
 ==================================
  ![image](https://github.com/wenbo2018/WebS/blob/master/webs.png)
 
+ ## Maven dependency
+
+    <dependency>
+        <groupId>com.github.wenbo2018</groupId>
+        <artifactId>webs-core</artifactId>
+        <version>0.0.1</version>
+    </dependency>
 
  ## Quick Config
 
