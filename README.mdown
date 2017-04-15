@@ -1,4 +1,5 @@
-WebS is a lightweight and simple MVC framework that supports Java.
+WebS
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/wenbo2018/fox/)
 ==================================
 WebS is a  Java lightweight and simple MVC framework that is mainly used for learning . WebS support restful URLs, annotation configuration and WebS is integrated with spring
 IOC also can extended  other IOC container, supporting the view template extension ,default implementation of JSP. The framework is mainly used for their
@@ -11,11 +12,14 @@ WebS request processing flow chart
 
  ## Maven dependency
 
+```xml
     <dependency>
         <groupId>com.github.wenbo2018</groupId>
         <artifactId>webs-core</artifactId>
         <version>0.0.1</version>
     </dependency>
+
+```
 
  ## Quick Config
 
