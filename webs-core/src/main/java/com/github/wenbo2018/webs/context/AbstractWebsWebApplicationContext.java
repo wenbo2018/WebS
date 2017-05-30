@@ -39,7 +39,6 @@ public abstract class AbstractWebsWebApplicationContext implements WebsWebApplic
         synchronized (this) {
             if (!isInitContext) {
                 try {
-
                     if (beanDefinitionMap != null || beanDefinitionMap.size() > 0) {
                         beanDefinitionMap.clear();
                     }
@@ -54,6 +53,7 @@ public abstract class AbstractWebsWebApplicationContext implements WebsWebApplic
                             beanDefinitionMap.put(className, beanDefinition);
                         }
                     }
+                    logger.info("WebS init context success");
                     isInitContext = true;
                 } catch (ClassNotFoundException e) {
                     logger.error("class not find WebsController.class:{}", e);

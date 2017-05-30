@@ -1,6 +1,7 @@
 package com.github.wenbo2018.webs.demo;
 
 import com.github.wenbo2018.webs.annotation.Json;
+import com.github.wenbo2018.webs.annotation.Jsp;
 import com.github.wenbo2018.webs.annotation.RequestMapping;
 import com.github.wenbo2018.webs.annotation.WebsController;
 
@@ -19,6 +20,8 @@ public class UserController {
         System.out.println(username);
     }
 
+
+    @Jsp
     @RequestMapping(requestUrl ="/user",responseUrl = "index")
     public void test2(int sp) {
         System.out.println(sp);
@@ -28,7 +31,6 @@ public class UserController {
     @RequestMapping(requestUrl ="/user/json")
     public List<User> test3() {
         List<User> list=new ArrayList<>();
-
       for (int i=0;i<100;i++) {
           User user=new User();
           user.setUserName("wenbo");
