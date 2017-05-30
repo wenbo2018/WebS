@@ -40,20 +40,11 @@ WebS request processing flow chart
     </listener>
 
 ```
+## Feature
 
-
-```xml
-@RequestMapping(controllerUrl ="/index")
-@WebsController
-public class UserController {
-
-    @RequestMapping(requestUrl = "/test",responseUrl = "index")
-    public void userController() {
-        System.out.println("test");
-    }
-}
-
-```
+1.All annotation configuration
+2.support json、jsp、ftl
+3.lightweight
 
 ##  License
 
