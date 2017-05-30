@@ -22,16 +22,14 @@ import com.github.wenbo2018.webs.view.ModelAndView;
 import com.github.wenbo2018.webs.view.ViewResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class WebSDispatchServlet extends FrameworkServlet {
@@ -51,6 +49,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
 
     @Override
     protected void onRefresh(WebsWebApplicationContext websWebApplicationContext) {
+        logger.info("WebSDispatchServlet init");
         initWebs(websWebApplicationContext);
     }
 
@@ -110,8 +109,8 @@ public class WebSDispatchServlet extends FrameworkServlet {
         String url = request.getRequestURI();
         Handler handler = handlerMapping.getHandler(url);
         if (handler == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-            rd.forward(request, response);
+            logger.warn("not found request mapping");
+            response.sendError(404, "The corresponding request was not found");
             return;
         }
         ModelAndView mView = new ModelAndView();
@@ -119,14 +118,14 @@ public class WebSDispatchServlet extends FrameworkServlet {
         Object[] parameters = null;
         Map<String, String[]> parameters_name_args = request.getParameterMap();
         if (parameters_name_args.size() == 0) {
-            mView=invokeHandlerInterceptors(request, response, handler, handlerInvoker, null);
+            mView = invokeHandlerInterceptors(request, response, handler, handlerInvoker, null);
         } else {
             Class<?>[] clazz = method.getParameterTypes();
-            List<String> ParametersName;
+            List<String> ParametersName=new ArrayList<String>();
             try {
                 ParametersName = getMethodParametersName(method);
-            } catch (Exception e1) {
-                throw new ServletException(e1);
+            } catch (Exception e) {
+                logger.error("get Method Parameters Name error:{}", e);
             }
             parameters = new Object[clazz.length];
             for (int i = 0; i < ParametersName.size(); i++) {
@@ -138,13 +137,14 @@ public class WebSDispatchServlet extends FrameworkServlet {
                     try {
                         parameters[i] = SwitcherFactory.switcher(clazz[i], args);
                     } catch (Exception e) {
-                        response.sendError(400);
+                        logger.error("server parameter parse error:{}",e);
+                        response.sendError(500,"server parameter parse error");
                         break;
                     }
                 }
             }
             if (handler != null) {
-                mView=invokeHandlerInterceptors(request, response, handler,handlerInvoker, parameters);
+                mView = invokeHandlerInterceptors(request, response, handler, handlerInvoker, parameters);
             }
         }
         doDispatch(mView, request, response);
@@ -152,13 +152,13 @@ public class WebSDispatchServlet extends FrameworkServlet {
 
 
     private ModelAndView invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response, Handler handler,
-                                           HandlerInvoker handlerInvoker, Object[] parameters) {
+                                                   HandlerInvoker handlerInvoker, Object[] parameters) {
         List<HandlerInterceptor> handlerInterceptors = interceptor.getInterceptor();
         HandlerInterceptorWrapper handlerInterceptorChain =
                 new HandlerInterceptorWrapper(handlerInvoker, handlerInterceptors, parameters);
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         try {
-           modelAndView= handlerInterceptorChain.exeInterceptor(request, response, handler);
+            modelAndView = handlerInterceptorChain.exeInterceptor(request, response, handler);
             handlerInterceptorChain.exeAfterInterceptor(request, response);
         } catch (Exception e) {
             logger.error("handler chain invoker fail", e);
@@ -181,24 +181,19 @@ public class WebSDispatchServlet extends FrameworkServlet {
 
     private List<String> getMethodParametersName(Method method) throws Exception {
         List<String> name = new LinkedList<String>();
-        try {
-            Class clazz = method.getDeclaringClass();
-            String methodName = method.getName();
-            ClassPool pool = ClassPool.getDefault();
-            pool.insertClassPath(new ClassClassPath(clazz));
-            CtClass cc = pool.get(clazz.getName());
-            CtMethod cm = cc.getDeclaredMethod(methodName);
-            MethodInfo methodInfo = cm.getMethodInfo();
-            CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-            LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute
-                    .getAttribute(LocalVariableAttribute.tag);
-            String[] paramNames = new String[cm.getParameterTypes().length];
-            int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
-            for (int i = 0; i < paramNames.length; i++) {
-                name.add(attr.variableName(i + pos));
-            }
-        } catch (Exception e) {
-            throw e;
+        Class clazz = method.getDeclaringClass();
+        String methodName = method.getName();
+        ClassPool pool = ClassPool.getDefault();
+        pool.insertClassPath(new ClassClassPath(clazz));
+        CtClass cc = pool.get(clazz.getName());
+        CtMethod cm = cc.getDeclaredMethod(methodName);
+        MethodInfo methodInfo = cm.getMethodInfo();
+        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+        LocalVariableAttribute attr = (LocalVariableAttribute) codeAttribute.getAttribute(LocalVariableAttribute.tag);
+        String[] paramNames = new String[cm.getParameterTypes().length];
+        int pos = Modifier.isStatic(cm.getModifiers()) ? 0 : 1;
+        for (int i = 0; i < paramNames.length; i++) {
+            name.add(attr.variableName(i + pos));
         }
         return name;
     }

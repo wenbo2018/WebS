@@ -98,5 +98,6 @@ public abstract class AbstractViewResolver implements ViewResolver {
                 }
             }
         }
+        logger.info("Webs init handlerMapping success");
     }
 }

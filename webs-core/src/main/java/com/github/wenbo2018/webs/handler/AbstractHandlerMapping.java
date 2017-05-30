@@ -48,7 +48,7 @@ public abstract class AbstractHandlerMapping implements HandlerMapping {
                 }
             }
         }
-        logger.info("handler init success");
+        logger.info("Webs init handler success");
 
     }
 
