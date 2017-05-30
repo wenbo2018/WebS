@@ -1,6 +1,6 @@
 package com.github.wenbo2018.webs.handler;
 
-import com.github.wenbo2018.webs.context.ApplicationContext;
+import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +11,6 @@ public interface HandlerMapping {
 
     Handler getHandler(HttpServletRequest request);
 
-    void init(ApplicationContext applicationContext) throws IllegalAccessException, InstantiationException;
+    void init(WebsWebApplicationContext websWebApplicationContext) throws IllegalAccessException, InstantiationException;
 
 }

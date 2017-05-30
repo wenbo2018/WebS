@@ -57,8 +57,10 @@ public class ClassUtils {
             if (file.isDirectory()) {
                 loop(file, packageName + file.getName() + ".", dir);
             } else {
-                String className = file.getPath().substring(dir.length() - 1);
-                String name = className.replaceAll("\\\\", ".");
+                StringBuffer className=new StringBuffer();
+                className.append(file.getPath().substring(dir.length()).toString());
+                className.subSequence(1,className.length());
+                String name=className.toString().replaceAll("/",".");
                 if (!name.contains("$")) {
                     if (name.contains(".class")) {
                         classNameList.add(name.replaceAll(".class", ""));

@@ -63,7 +63,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
     }
 
 
-    protected void onRefresh(ApplicationContext context) {
+    protected void onRefresh(WebsWebApplicationContext context) {
 
     }
 

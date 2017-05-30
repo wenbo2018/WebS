@@ -36,7 +36,7 @@ WebS request processing flow chart
     </servlet-mapping>
     <!--WebS config-->
     <listener>
-        <listener-class>com.github.wenbo2018.webs.context.WebsContextLoaderListener</listener-class>
+        <listener-class>com.github.wenbo2018.webs.context.listener.WebsContextLoaderListener</listener-class>
     </listener>
 
 ```

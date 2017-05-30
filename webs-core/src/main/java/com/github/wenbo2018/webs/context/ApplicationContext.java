@@ -1,6 +1,5 @@
 package com.github.wenbo2018.webs.context;
 
-import java.util.List;
 
 /**
  * Created by shenwenbo on 2017/4/8.
@@ -8,7 +7,5 @@ import java.util.List;
 public interface ApplicationContext {
 
     Object getBean(String name);
-    List<Object> getObjects();
-    void init();
 
 }

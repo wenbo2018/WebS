@@ -18,13 +18,6 @@ public class DefaultWebsWebApplicationContext extends AbstractWebsWebApplication
 
     private volatile static boolean init = false;
 
-
-    @Override
-    public Object getBean(String name) {
-
-        return null;
-    }
-
     @Override
     public List<Object> getObjects() {
         if (this.beans == null || this.beans.size() <= 0) {

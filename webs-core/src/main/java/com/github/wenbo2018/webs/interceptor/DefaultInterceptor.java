@@ -1,6 +1,7 @@
 package com.github.wenbo2018.webs.interceptor;
 
-import com.github.wenbo2018.webs.context.ApplicationContext;
+import com.github.wenbo2018.webs.bean.BeanDefinition;
+import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +14,23 @@ public class DefaultInterceptor implements WebsInterceptor {
 
     private List<Object> controllerBean=new ArrayList<>();
 
+    protected List<BeanDefinition> beanDefinitions=new ArrayList<BeanDefinition>();
+
     @Override
     public List<HandlerInterceptor> getInterceptor() {
         return this.handlerInterceptors;
     }
 
     @Override
-    public void init(ApplicationContext applicationContext) throws IllegalAccessException, InstantiationException {
-        if (!controllerBean.isEmpty())
-            controllerBean = null;
-        controllerBean = applicationContext.getObjects();
-        int size = controllerBean.size();
-        for (int i = 0; i < size; i++) {
-            Object obj = controllerBean.get(i);
-            Class clazz = obj.getClass();
+    public void init(WebsWebApplicationContext websWebApplicationContext) throws IllegalAccessException, InstantiationException {
+        if (beanDefinitions!=null&&beanDefinitions.size()>0) {
+            beanDefinitions.clear();
+        }
+        beanDefinitions=websWebApplicationContext.getBeanAsList();
+        int size = beanDefinitions.size();
+        for (BeanDefinition beanDefinition:beanDefinitions) {
+            Object obj = beanDefinition.getBean();
+            Class clazz = beanDefinition.getBeanClass();
             String url = null;
             if (clazz.isAnnotationPresent(com.github.wenbo2018.webs.annotation.WebsInterceptor.class)) {
                 url = clazz.newInstance().getClass().getAnnotation(com.github.wenbo2018.webs.annotation.WebsInterceptor.class).Url();

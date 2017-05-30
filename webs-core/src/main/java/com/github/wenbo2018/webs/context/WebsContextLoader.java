@@ -1,7 +1,5 @@
 package com.github.wenbo2018.webs.context;
 
-import org.springframework.web.context.WebApplicationContext;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -14,8 +12,9 @@ public class WebsContextLoader {
     public WebsWebApplicationContext initWebApplicationContext(ServletContext servletContext) {
         if (context==null) {
             this.context=createWebApplicationContext(servletContext);
+            this.context.initContext(servletContext);
         }
-        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
+        servletContext.setAttribute(WebsWebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
         return this.context;
     }
 
