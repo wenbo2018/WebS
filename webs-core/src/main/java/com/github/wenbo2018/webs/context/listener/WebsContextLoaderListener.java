@@ -1,9 +1,6 @@
-package com.github.wenbo2018.webs.context;
+package com.github.wenbo2018.webs.context.listener;
 
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-
-import javax.servlet.ServletContext;
+import com.github.wenbo2018.webs.context.WebsContextLoader;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -30,7 +27,7 @@ public class WebsContextLoaderListener extends WebsContextLoader implements Serv
     }
 
     protected WebsContextLoader createContextLoader() {
-        return null;
+        return this;
     }
 
 

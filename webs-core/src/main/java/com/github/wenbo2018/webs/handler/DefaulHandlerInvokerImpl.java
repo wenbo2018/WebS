@@ -9,6 +9,9 @@ public class DefaulHandlerInvokerImpl implements HandlerInvoker{
 	@Override
 	public ModelAndView invokeHandler(HttpServletRequest request, HttpServletResponse response,
 									  Handler handler, Object[] args) throws Exception {
-		   return (ModelAndView) handler.getMethod().invoke(handler.getInstance(),args);
+		   Object o= handler.getMethod().invoke(handler.getInstance(),args);
+		   ModelAndView modelAndView=new ModelAndView();
+		   modelAndView.setObject(o);
+		   return modelAndView;
 	}
 }

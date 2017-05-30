@@ -1,7 +1,7 @@
 package com.github.wenbo2018.webs.util;
 
 import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
-import org.springframework.util.Assert;
+import sun.jvm.hotspot.utilities.Assert;
 
 import javax.servlet.ServletContext;
 
@@ -25,7 +25,6 @@ public class WebsWebApplicationContextUtils {
     }
 
     public static WebsWebApplicationContext getWebApplicationContext(ServletContext sc, String attrName) {
-        Assert.notNull(sc, "ServletContext must not be null");
         Object attr = sc.getAttribute(attrName);
         if (attr == null) {
             return null;

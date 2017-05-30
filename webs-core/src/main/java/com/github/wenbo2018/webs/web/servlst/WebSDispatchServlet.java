@@ -2,6 +2,7 @@ package com.github.wenbo2018.webs.web.servlst;
 
 
 import com.github.wenbo2018.webs.context.ApplicationContext;
+import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
 import com.github.wenbo2018.webs.extension.ExtensionServiceLoader;
 import com.github.wenbo2018.webs.interceptor.HandlerInterceptor;
 import com.github.wenbo2018.webs.interceptor.WebsInterceptor;
@@ -49,28 +50,28 @@ public class WebSDispatchServlet extends FrameworkServlet {
     private List<HandlerInvoker> handlerInvokers;
 
     @Override
-    protected void onRefresh(ApplicationContext context) {
-        initWebs(context);
+    protected void onRefresh(WebsWebApplicationContext websWebApplicationContext) {
+        initWebs(websWebApplicationContext);
     }
 
-    private void initWebs(ApplicationContext context) {
-        initHandlerMappings(context);
-        initViewResolvers(context);
-        initHandlerInvoker(context);
-        initInterceptor(context);
+    private void initWebs(WebsWebApplicationContext websWebApplicationContext) {
+        initHandlerMappings(websWebApplicationContext);
+        initViewResolvers(websWebApplicationContext);
+        initHandlerInvoker(websWebApplicationContext);
+        initInterceptor(websWebApplicationContext);
     }
 
 
-    private void initHandlerInvoker(ApplicationContext context) {
+    private void initHandlerInvoker(WebsWebApplicationContext websWebApplicationContext) {
         this.handlerInvoker = null;
         handlerInvoker = ExtensionServiceLoader.getExtension(HandlerInvoker.class);
     }
 
-    private void initHandlerMappings(ApplicationContext context) {
+    private void initHandlerMappings(WebsWebApplicationContext websWebApplicationContext) {
         this.handlerMapping = null;
         handlerMapping = ExtensionServiceLoader.getExtension(HandlerMapping.class);
         try {
-            handlerMapping.init(context);
+            handlerMapping.init(websWebApplicationContext);
         } catch (IllegalAccessException e) {
             logger.error("handlerMapping init fail", e);
         } catch (InstantiationException e) {
@@ -78,11 +79,11 @@ public class WebSDispatchServlet extends FrameworkServlet {
         }
     }
 
-    private void initViewResolvers(ApplicationContext context) {
+    private void initViewResolvers(WebsWebApplicationContext websWebApplicationContext) {
         this.viewResolver = null;
         viewResolver = ExtensionServiceLoader.getExtension(ViewResolver.class);
         try {
-            viewResolver.init(context);
+            viewResolver.init(websWebApplicationContext);
         } catch (IllegalAccessException e) {
             logger.error("viewResolver init fail", e);
         } catch (InstantiationException e) {
@@ -90,11 +91,11 @@ public class WebSDispatchServlet extends FrameworkServlet {
         }
     }
 
-    private void initInterceptor(ApplicationContext context) {
+    private void initInterceptor(WebsWebApplicationContext websWebApplicationContext) {
         interceptor = null;
         interceptor = ExtensionServiceLoader.getExtension(WebsInterceptor.class);
         try {
-            interceptor.init(context);
+            interceptor.init(websWebApplicationContext);
         } catch (IllegalAccessException e) {
             logger.error("interceptor init fail", e);
         } catch (InstantiationException e) {
@@ -118,7 +119,7 @@ public class WebSDispatchServlet extends FrameworkServlet {
         Object[] parameters = null;
         Map<String, String[]> parameters_name_args = request.getParameterMap();
         if (parameters_name_args.size() == 0) {
-            invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, null);
+            mView=invokeHandlerInterceptors(request, response, handler, handlerInvoker, null);
         } else {
             Class<?>[] clazz = method.getParameterTypes();
             List<String> ParametersName;
@@ -143,24 +144,26 @@ public class WebSDispatchServlet extends FrameworkServlet {
                 }
             }
             if (handler != null) {
-                invokeHandlerInterceptors(request, response, handler, mView, handlerInvoker, parameters);
+                mView=invokeHandlerInterceptors(request, response, handler,handlerInvoker, parameters);
             }
         }
-
         doDispatch(mView, request, response);
     }
 
 
-    private void invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response, Handler handler, ModelAndView modelAndView,
+    private ModelAndView invokeHandlerInterceptors(HttpServletRequest request, HttpServletResponse response, Handler handler,
                                            HandlerInvoker handlerInvoker, Object[] parameters) {
         List<HandlerInterceptor> handlerInterceptors = interceptor.getInterceptor();
-        HandlerInterceptorWrapper handlerInterceptorChain = new HandlerInterceptorWrapper(handlerInvoker, handlerInterceptors, parameters);
+        HandlerInterceptorWrapper handlerInterceptorChain =
+                new HandlerInterceptorWrapper(handlerInvoker, handlerInterceptors, parameters);
+        ModelAndView modelAndView=new ModelAndView();
         try {
-            handlerInterceptorChain.exeInterceptor(request, response, handler);
-            handlerInterceptorChain.exeAfterInterceptor(request, response, handler);
+           modelAndView= handlerInterceptorChain.exeInterceptor(request, response, handler);
+            handlerInterceptorChain.exeAfterInterceptor(request, response);
         } catch (Exception e) {
             logger.error("handler chain invoker fail", e);
         }
+        return modelAndView;
     }
 
 
