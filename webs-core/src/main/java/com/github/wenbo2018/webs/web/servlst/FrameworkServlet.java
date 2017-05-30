@@ -1,13 +1,11 @@
 package com.github.wenbo2018.webs.web.servlst;
 
-import com.github.wenbo2018.webs.context.ApplicationContext;
 import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
-import com.github.wenbo2018.webs.util.WebsWebApplicationContextUtils;
+import com.github.wenbo2018.webs.context.utils.WebsWebApplicationContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
