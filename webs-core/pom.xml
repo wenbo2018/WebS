@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.wenbo2018</groupId>
         <artifactId>webs</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
     <artifactId>webs-core</artifactId>
     <name>webs-core</name>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <url>https://github.com/wenbo2018/WebS</url>
     <properties>
