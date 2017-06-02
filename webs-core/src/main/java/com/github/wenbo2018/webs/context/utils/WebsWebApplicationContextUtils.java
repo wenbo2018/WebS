@@ -1,8 +1,6 @@
 package com.github.wenbo2018.webs.context.utils;
 
 import com.github.wenbo2018.webs.context.WebsWebApplicationContext;
-import sun.jvm.hotspot.utilities.Assert;
-
 import javax.servlet.ServletContext;
 
 /**
