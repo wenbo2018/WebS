@@ -4,11 +4,11 @@
     <parent>
         <groupId>com.github.wenbo2018</groupId>
         <artifactId>webs</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.2</version>
     </parent>
     <artifactId>webs-demo</artifactId>
     <name>webs-demo</name>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>war</packaging>
     <url>http://maven.apache.org</url>
     <properties>

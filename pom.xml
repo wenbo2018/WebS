@@ -5,7 +5,7 @@
     <artifactId>webs</artifactId>
     <name>webs</name>
     <packaging>pom</packaging>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <url>https://github.com/wenbo2018/WebS</url>
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
