@@ -12,6 +12,8 @@ WebS request processing flow chart
 
  ## Maven dependency
 
+ ##### latest release version is 0.0.2
+
 ```xml
     <dependency>
         <groupId>com.github.wenbo2018</groupId>
