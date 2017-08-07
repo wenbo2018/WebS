@@ -18,7 +18,7 @@ WebS request processing flow chart
     <dependency>
         <groupId>com.github.wenbo2018</groupId>
         <artifactId>webs-core</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </dependency>
 
 ```
