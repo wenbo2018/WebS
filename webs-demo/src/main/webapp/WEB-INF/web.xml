@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 
-  <!--WebS config servlet-->
+  <!--WconfigDTOnfig servlet-->
     <servlet>
         <servlet-name>webs</servlet-name>
         <servlet-class>com.github.wenbo2018.webs.web.servlst.WebSDispatchServlet</servlet-class>
@@ -13,7 +13,7 @@
         <servlet-name>webs</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <!--WebS config-->
+    <!--WconfigDTOnfig-->
     <listener>
         <listener-class>com.github.wenbo2018.webs.context.listener.WebsContextLoaderListener</listener-class>
     </listener>
